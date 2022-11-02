@@ -172,7 +172,7 @@ int main()
             exit(0);
         }
 
-    printf ("\nThe sum of elements in the segement [%d,%d] in version [%d] = %d\e[m\n",l,r,version,request(roots[version],0,num,l,r));
+    printf ("\nThe sum of elements in the segement [%d,%d] in version [%d] = %d\n",l,r,version,request(roots[version],0,num,l,r));
     
 }
 
