@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define limit 50
+#define limit 500
 
 struct node {
 
@@ -27,19 +27,17 @@ struct node* roots[limit];
 
 void makeTree ( struct node* newNode, int start, int finish )
 {   
+    int add = start+finish;
+    int centre = add/2;
+
     if ( start == finish  ) 
     {
         newNode -> data = list[start];
         return ;
     }
 
-    int add = start+finish;
-    int centre = add/2;
-
-    //newNode -> left = malloc(sizeof(struct node));
     newNode -> left = createNode( NULL, NULL, 0);
 
-    //newNode -> right = malloc(sizeof(struct node));
     newNode -> right = createNode( NULL, NULL, 0);
 
     makeTree ( newNode -> left, start, centre);
@@ -50,7 +48,10 @@ void makeTree ( struct node* newNode, int start, int finish )
 }
 
 void updateTree (struct node* past, struct node* present, int start, int finish, int index, int key)
-{
+{   
+    int add = start + finish;
+    int centre = add/2;
+
     if ( index > finish || index < start || start > finish)
     {
         return;
@@ -62,33 +63,33 @@ void updateTree (struct node* past, struct node* present, int start, int finish,
         return;
     }
 
-    int add = start + finish;
-    int centre = add/2;
-
     if ( index <= centre)
     {
         present -> right = past -> right;
-        //present -> left = malloc ( sizeof(struct node) );
+        
         present -> left = createNode( NULL, NULL, 0);
 
         updateTree ( past -> left, present -> left, start, centre, index, key);
-
     }
 
     else 
     {
         present -> left = past -> left;
-        //present -> right = malloc (sizeof(struct node));
-        present -> right = createNode ( NULL, NULL, 0);
-        updateTree ( past -> right, present -> right, centre + 1, finish, index, key);
     
+        present -> right = createNode ( NULL, NULL, 0);
+
+        updateTree ( past -> right, present -> right, centre + 1, finish, index, key);
     }
 
     present -> data = present -> left -> data + present -> right -> data;
 }
 
 int request ( struct node* myNode, int start, int finish, int begin, int end)
-{
+{   
+    int add = start + finish;
+    int centre = add / 2;
+    int left,right,answer;
+
     if ( begin > finish || end < finish || start > finish)
     {
         return false;
@@ -99,14 +100,11 @@ int request ( struct node* myNode, int start, int finish, int begin, int end)
         return myNode -> data; 
     }
 
-    int add = start + finish;
-    int centre = add / 2;
+    left = request ( myNode -> left, start, centre, begin, end);
 
-    int left = request ( myNode -> left, start, centre, begin, end);
+    right = request ( myNode -> right, centre + 1, finish, begin, end);
 
-    int right = request ( myNode -> right, centre + 1, finish, begin, end);
-
-    int answer = left + right;
+    answer = left + right;
 
     return answer;
 }
@@ -115,73 +113,66 @@ int request ( struct node* myNode, int start, int finish, int begin, int end)
 int main()
 {   
     int arr_size,queries;
+    int ver_count = 0;
+    int changedValue,index;
+    int l,r;
+    char quit;
+    int version;
 
     printf ("Enter the size of the array: ");
     scanf ("%d",&arr_size);
 
-    printf ("Enter the number of queries to be performed: ");
-    scanf("%d",&queries);
+    // printf ("Enter the number of queries to be performed: ");
+    // scanf("%d",&queries);
 
-    //int array[arr_size];
+    printf ("Enter array elements separated by spaces: \n");
+    for ( int t = 0; t < arr_size; t++)
+    {
+        scanf("%d",&list[t]);
+    }
+
     int num = arr_size - 1;
-    //for ( int w = 0; w < queries; w++)
-    //{   
-        printf ("Enter array elements separated by spaces: \n");
-        for ( int t = 0; t < arr_size; t++)
-        {
-            scanf("%d",&list[t]);
-        }
 
-        //struct node* node_0 = malloc (sizeof(struct node));
+    printf ("Enter number of versions to be constructed for the segement tree: ");
+    scanf ("%d",&ver_count);
+    
+        
         struct node* node_0 = createNode( NULL, NULL, 0 );
         makeTree( node_0,0,num);
 
-
         roots[0] = node_0;
-        int choice = 0;
-        printf ("Enter number of versions: ");
-        scanf ("%d",&choice);
-        int changedValue,index;
 
-        for (int i = 1; i < choice; i++)
+        for (int i = 1; i < ver_count; i++)
         {   
             
-            printf("Enter Index and new value separated with spaces: ");
+            printf("Enter Index to be updated and new value separated with spaces: ");
             scanf("%d%d", &index,&changedValue);
 
-            //struct node* struct nodeVersion = malloc ( sizeof(struct node) );
-           
             struct node* nodeVersion = createNode( NULL, NULL, 0 );
             roots[i] = nodeVersion;
 
             updateTree ( roots[i-1], roots[i], 0, num, index, changedValue );
         }
 
-       // struct node* struct nodeVersion = malloc ( sizeof(struct node) );
-           
-            // struct node* nodeVersion = createNode( NULL, NULL, 0 );
-            // roots[1] = nodeVersion;
-
-            // updateTree ( roots[0], roots[1], 0, num, 2, 10 );
-        
-         
-        printf("In version 1, query(0,4) : ");
-        printf ("%d\n", request(roots[1],0,num,0,4));
-
-        printf("In version 2, query(3,4) : ");
-        printf ("%d\n", request(roots[2],0,num,3,4));
-
-        printf("In version 0, query(0,3) : ");
-        printf ("%d\n", request(roots[0],0,num,0,3));
-
-
         
 
+        printf("Enter the value of l in arr[l,r]: ");
+        scanf("%d",&l);
 
+        printf("Enter the value of r in arr[l,r]: ");
+        scanf("%d",&r);
 
+        
+        printf ("Enter desired version: ");
+        scanf("%d",&version);
 
-    //}
+        if ( version >= ver_count)
+        {
+            printf("Invalid version entered!\n");
+            exit(0);
+        }
 
+    printf ("\nThe sum of elements in the segement [%d,%d] in version [%d] = %d\e[m\n",l,r,version,request(roots[version],0,num,l,r));
     
 }
 
