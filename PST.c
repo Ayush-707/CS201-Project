@@ -139,7 +139,7 @@ int main()
     roots[0] = node_0;
 
 
-    for (int i = 1; i <= ver_count; i++)
+    for (int i = 1; i < ver_count; i++)
     {
 
         printf("Enter Index to be updated and new value separated with spaces: ");
