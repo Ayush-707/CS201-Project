@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+
 
 #define limit 500
 
@@ -152,7 +152,12 @@ int main()
         char flag;
         printf ("Press q to quit or y to continue: ");
         scanf (" %c",&flag);
-
+        
+        if ( flag != 'q' || flag != 'Q'  || flag != 'y' || flag != 'Y')
+        {
+            printf("\nInvalid Input Detected!\n");
+            continue;
+        }
         if( flag == 'q' || flag == 'Q')
         {
             printf("\nExiting Program.............\n");
