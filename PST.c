@@ -88,11 +88,11 @@ int request ( struct node* myNode, int start, int finish, int begin, int end)
 {   
     int add = start + finish;
     int centre = add / 2;
-    int left,right,answer;
+    int half_1,half_2,answer;
 
-    if ( begin > finish || end < finish || start > finish)
+    if ( begin > finish || end < start || start > finish)
     {
-        return false;
+        return 0;
     }
 
     if ( begin <= start && finish <= end )
@@ -100,30 +100,26 @@ int request ( struct node* myNode, int start, int finish, int begin, int end)
         return myNode -> data; 
     }
 
-    left = request ( myNode -> left, start, centre, begin, end);
+    half_1 = request ( myNode -> left, start, centre, begin, end);
 
-    right = request ( myNode -> right, centre + 1, finish, begin, end);
+    half_2 = request ( myNode -> right, centre + 1, finish, begin, end);
 
-    answer = left + right;
+    answer = half_1 + half_2;
 
     return answer;
 }
 
 
 int main()
-{   
+{
     int arr_size,queries;
     int ver_count = 0;
     int changedValue,index;
     int l,r;
-    char quit;
     int version;
 
     printf ("Enter the size of the array: ");
     scanf ("%d",&arr_size);
-
-    // printf ("Enter the number of queries to be performed: ");
-    // scanf("%d",&queries);
 
     printf ("Enter array elements separated by spaces: \n");
     for ( int t = 0; t < arr_size; t++)
@@ -135,26 +131,33 @@ int main()
 
     printf ("Enter number of versions to be constructed for the segement tree: ");
     scanf ("%d",&ver_count);
-    
-        
-        struct node* node_0 = createNode( NULL, NULL, 0 );
-        makeTree( node_0,0,num);
 
-        roots[0] = node_0;
 
-        for (int i = 1; i < ver_count; i++)
-        {   
-            
-            printf("Enter Index to be updated and new value separated with spaces: ");
-            scanf("%d%d", &index,&changedValue);
+    struct node* node_0 = createNode( NULL, NULL, 0 );
+    makeTree( node_0,0,num);
 
-            struct node* nodeVersion = createNode( NULL, NULL, 0 );
-            roots[i] = nodeVersion;
+    roots[0] = node_0;
 
-            updateTree ( roots[i-1], roots[i], 0, num, index, changedValue );
+
+    for (int i = 1; i <= ver_count; i++)
+    {
+
+        printf("Enter Index to be updated and new value separated with spaces: ");
+        scanf("%d %d", &index,&changedValue);
+        roots[i] = createNode(NULL, NULL, 0);
+        updateTree ( roots[i-1], roots[i], 0, num, index, changedValue );
+    }
+
+    while(1) {
+        char flag;
+        printf ("Press q to quit or y to continue: ");
+        scanf (" %c",&flag);
+
+        if( flag == 'q' || flag == 'Q')
+        {
+            printf("\nExiting Program.............\n");
+            exit(0);
         }
-
-        
 
         printf("Enter the value of l in arr[l,r]: ");
         scanf("%d",&l);
@@ -162,17 +165,21 @@ int main()
         printf("Enter the value of r in arr[l,r]: ");
         scanf("%d",&r);
 
-        
+        if ( l > r) {
+            perror("\nInvalid Input Detected!\n");
+            continue;
+        }
+
+
         printf ("Enter desired version: ");
         scanf("%d",&version);
 
         if ( version >= ver_count)
         {
             printf("Invalid version entered!\n");
-            exit(0);
+            continue;
         }
 
-    printf ("\nThe sum of elements in the segement [%d,%d] in version [%d] = %d\n",l,r,version,request(roots[version],0,num,l,r));
-    
+        printf ("\nThe sum of elements in the segment [%d,%d] in version [%d] = %d\n",l,r,version,request(roots[version],0,num,l,r));
+    }
 }
-
