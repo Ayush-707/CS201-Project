@@ -1,4 +1,4 @@
-<h3> Group : 41 members </h3>
+<h3> Group 41</h3>
 
 1. AYUSH SINGH - 2020CSB1079
 2. ANIVESH SINGH GURJER - 2020CSB1071
