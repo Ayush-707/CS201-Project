@@ -20,12 +20,12 @@ Enter number of versions to be constructed for the segement tree: 3
 Enter Index to be updated and new value separated with spaces: 0 10    -----------> Creates the version - 1 of the tree
 Enter Index to be updated and new value separated with spaces: 4 50    -----------> Creates the version - 2 of the tree
 Press q to quit or y to continue: y  -----------> Press q to exit the program, else press y to continue. If anything else is entered program should throw an error.
-Enter the value of l in arr[l,r]: 0  
-Enter the value of r in arr[l,r]: 4
-Enter desired version: 0
+Enter the value of l in arr[l,r]: 0                                   ------------> Lower limit of the interval on which we want to perform the sum query
+Enter the value of r in arr[l,r]: 4                                   ------------> Upper limit of the interval on which we want to perform the sum query
+Enter desired version: 0                                              ------------> Required version of the tree on which query is performed
 
-The sum of elements in the segment [0,4] in version [0] = 15
-Press q to quit or y to continue: y
+The sum of elements in the segment [0,4] in version [0] = 15          ------------> Result of the query
+Press q to quit or y to continue: y                                   ------------> If anything other than q or y is entered, program should throw an error
 Enter the value of l in arr[l,r]: 0
 Enter the value of r in arr[l,r]: 4
 Enter desired version: 1
