@@ -215,7 +215,7 @@ int main()
         // function call for the query operaation
         int temp = request(roots[version],0,num,l,r));
 
-        //printing the output
+        //printing the output for the query
         print temp;
     }
 }
