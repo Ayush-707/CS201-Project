@@ -5,7 +5,7 @@ via bi-directional roads in such a way that they form a tree.
 
 As he has many enemies in the city, he needs to be careful in choosing the path for the road trip. In each city, resides a member of a certain gang,
 which wants to kill Avnish. Whenever Avnish passes through that city, the members of that gang become alert. Now, the good thing about these gangs for Avnish
-is that these gangs hate each other and don't go well with each other. So, a path is dangerous for dexter if and only if a gang exists on that path in majority.
+is that these gangs hate each other and don't go well with each other. So, a path is dangerous for Avnish if and only if a gang exists on that path in majority.
 Otherwise the gang members end up fighting each other and the path becomes clear for Avnish.
 
 Definition of majority on a path :
