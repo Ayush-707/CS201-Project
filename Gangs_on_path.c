@@ -44,13 +44,13 @@ int gang_on_path(struct node ** p, int gang_[],int l,int r)
 
 	while(a!=b){
 		
-		if(a!=0){
+		if(a!=0 && a<b){
 		gang_[(p[a]->gang)-1] += 1;
 		a=(a-1)/2;
 		n++;
 		}
 		
-		if(b!=0){
+		if(b!=0 && b>a){
 		gang_[(p[b]->gang)-1] += 1;
 		b=(b-1)/2;
 		n++;
