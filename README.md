@@ -1,26 +1,26 @@
 
-Persistent Segment Trees
+<h3>Persistent Segment Trees</h3>
 
-<h4> Language Used : </h4>C
 
-<h4> A Brief Summary of the project:- </h4>
+
+<h4> A Summary of the project:- </h4>
 
 We have implemented Persistent Segement tree algorithm and solved real life problem based on it.
 
 Problem statement for Algorithm is as follows:
-Given an array A[] and different point update operations.Considering each point operation to create a new version of the array. We need to answer the queries of type
-Q v l r : output the sum of elements in range l to r just after the v-th update.
+Given an input array A[] and different point update operations. Considering each point operation to create a new version of the array. We need to answer the queries of type
+Output the sum of elements of the array A[] in the range [l,r] in the desired version
 
 EXPECTED OUTPUT AND INSTRUCTIONS ON HOW TO ENTER INPUT:
 
 Enter the size of the array: 5
 Enter array elements separated by spaces: 
-1 2 3 4 5
+1 2 3 4 5                                                              -----------> Creates the version - 0 of the tree
 Enter number of versions to be constructed for the segement tree: 3
-Enter Index to be updated and new value separated with spaces: 0 10
-Enter Index to be updated and new value separated with spaces: 4 50
-Press q to quit or y to continue: y
-Enter the value of l in arr[l,r]: 0
+Enter Index to be updated and new value separated with spaces: 0 10    -----------> Creates the version - 1 of the tree
+Enter Index to be updated and new value separated with spaces: 4 50    -----------> Creates the version - 2 of the tree
+Press q to quit or y to continue: y  -----------> Press q to exit the program, else press y to continue. If anything else is entered program should throw an error.
+Enter the value of l in arr[l,r]: 0  
 Enter the value of r in arr[l,r]: 4
 Enter desired version: 0
 
