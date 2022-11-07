@@ -69,13 +69,13 @@ int Safe_or_Dangerous(int gang_no[],int num_node,int n)
 	while(i!=num_node){
 		if(gang_no[i]>n/2){
 			
-			printf("D %d\n",i+1);
+			printf("DANGEROUS AS GANG NO. %d IS IN MAJORITY!!\n",i+1);
 			k++;
 		}
 		i++;
 	}
 	if(k==0){
-		printf("S\n");	
+		printf("SAFE\n");	
 	}
 	
 }
@@ -110,6 +110,7 @@ int main(){
 	for(int m = 0; m < M; m++){
         
 	    scanf("%d %d",&l[m],&r[m]);
+        
     }
 	for(int m = 0; m<M;m++){
 		i=0;
