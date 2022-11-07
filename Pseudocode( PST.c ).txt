@@ -1,0 +1,221 @@
+//Structre for a node of the tree
+struct node {
+    // stores the value
+    int data;
+   //pointer to the left child of the current node
+   node* leftchildPtr;
+   //pointer to the right child of the current node
+   node* rightchildPtr;
+}
+
+//Function to assign values to a particular node
+node* createNode (node* l, node* r, int value)  {
+
+    //allocate memory for a node using malloc
+    node* newNode = malloc (sizeof(node));
+
+    // assign newNode's left pointer field equal to l
+    newNode -> left = l;
+
+    // assign newNode's right pointer field equal to r
+    newNode -> right = r;
+
+    // assign newNode's data field equal to value
+    newNode -> data = value;
+
+    //return the address of newNode
+    return newNode;
+}
+
+//declare a global integer array variable to store the input array elements
+// limit is the maximum size of the array allowed for the tree construction
+
+int array [limit];
+
+//declare a global array of pointers to root nodes of all the versions to be constructed
+node* roots[limit];
+
+//Function for the bersion-0 tree construction
+//This function takes pointer to root node, lowest and highest index as parameters
+
+makeTree (node* root, int start, int finish)    {
+
+    //find the median or central index of the array
+    int centre = ( start + finish ) / 2;
+
+    if ( start = finish) // if the lowest and highest index are equal
+    {
+        root -> data = array[start] // input array contains only one element
+
+        // return to main function
+        return; 
+    }
+
+    //if the lowest and highest index are not equal
+
+    //create the left child node
+    //for the left child node, assign its left and right chld pointers to NULL and data stored equal to 0
+    newNode -> left = createNode (NULL, NULL, 0);
+
+    //create the right child node
+    //for the right child node, assign its left and right chld pointers to NULL and data stored equal to 0
+    newNode -> right = createNode (NULL, NULL, 0);
+
+    // call the makeTree function recursively for the left child and right child of the root node to complete the construction of all the nodes
+
+    // for the leftchild, low index is the same but high index = central index of the array
+    makeTree ( newNode -> left, start, centre);
+
+    // for the rightchild, high index is the same but low index = central index + 1 of the array
+    makeTree ( newNode -> right, centre+1, finish);
+
+    // the recursive function calls essentialy create the segments of the input array and store them as tree nodes
+
+    //assign the data of the parent node = sum of the data in its left child and the right child
+    newNode -> data = newNode -> left -> data + newNode -> right -> data;
+
+}
+
+// Function to create a new version of the tree whenever an update is made at any index of the input array
+//node* past is the pointer to the previous node version
+//node* present is the pointer to the current node version
+//start is the lowest index of the array
+//finish is the highest index of the array
+//index is the value of the array index at which update is performed
+//key is the final value array[index] after updation
+// centre = start + finish / 2
+void updateTree (struct node* past, struct node* present, int start, int finish, int index, int key)
+{   
+    //error checking for the function call
+    if ( index > finish || index < start || start > finish)
+    {
+        return;
+    }
+
+    if ( start == finish)
+    {   
+        //changing the value in the new version
+        //base case for recursion
+        present -> data = key;
+        return;
+    }
+
+    if ( index <= centre)
+    {   
+        //traversing the left subtree
+        //link to the right child of old version as right subtree remains the same
+        present -> right = past -> right;
+        
+        //creating a new node for which updation is to be done
+        present -> left = createNode( NULL, NULL, 0);
+
+        //recursive function call
+        updateTree ( past -> left, present -> left, start, centre, index, key);
+    }
+
+    else 
+    {   
+        // traversing the rigth subtree
+        //link to the left child of the old version as left subtree remains unchanged
+        present -> left = past -> left;
+
+        //create a new node for which updation is to be done
+        present -> right = createNode ( NULL, NULL, 0);
+
+        //recursive function call
+        updateTree ( past -> right, present -> right, centre + 1, finish, index, key);
+    }
+
+    //calculating the node value for the new version
+    present -> data = present -> left -> data + present -> right -> data;
+}
+
+//Function to perform a query on any version of the tree
+//The function takes as argument -  1. root node of the version on which query is to be performed
+//2. Lowest and Highest Index of the array ( generally = 0 and N-1)
+//3. The interval for which sum needs to be calculated
+
+int request ( node* myNode, int start, int finish, int begin, int end)
+{  
+    // centre = low index + high index / 2
+
+    //error checking for the function
+    if ( begin > finish || end < start || start > finish)
+    {
+        return 0;
+    }
+
+    //base case for recursion
+    if ( begin <= start && finish <= end )
+    {
+        return myNode -> data; 
+    }
+
+    //recursive function calls for the left and right subtree
+    temp_1 = request ( myNode -> left, start, centre, begin, end);
+    temp_2 = request ( myNode -> right, centre + 1, finish, begin, end);
+    
+    //storing the result
+    answer = temp_1 + temp_2
+    return answer;
+}
+
+//Main function
+int main()
+{
+    
+
+    //arr_size = size of the input array
+    //list[] = the input array
+    //ver_count = total number of versions for the persistent tree including the original version
+
+    // version-0 tree construction
+    node* node_0 = createNode( NULL, NULL, 0 );
+    makeTree( node_0,0,num);
+
+    //roots array contains the pointer to the root node for all the versions
+    roots[0] = node_0;
+
+
+    for (int i = 1; i < ver_count; i++)
+    {
+
+        // index = required array index to be updated
+        // changedValue = new value to be stored in the array
+
+        //creating new tree versions
+        roots[i] = createNode(NULL, NULL, 0);
+        updateTree ( roots[i-1], roots[i], 0, num, index, changedValue );
+    }
+
+    while(1) {
+       
+        
+        if ( flag = q)
+        quit program;
+
+        // l = lower value for the query interval
+        //
+        // r = higher value for the query interval
+
+        if ( l > r) {
+            
+            invalid input;
+        }
+
+
+        // int version = desired version for the query operation 
+
+        if ( version >= ver_count)
+        {
+            Invalid input;
+        }
+        // num = highest input array index
+
+        // function call for the query operaation
+        int temp = request(roots[version],0,num,l,r));
+
+        //printing the output
+        print temp;
+    }
+}
