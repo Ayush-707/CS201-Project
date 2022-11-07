@@ -153,7 +153,7 @@ int main()
         printf ("Press q to quit or y to continue: ");
         scanf (" %c",&flag);
         
-        if ( flag != 'q' || flag != 'Q'  || flag != 'y' || flag != 'Y')
+        if ( flag != 'q' && flag != 'Q'  && flag != 'y' && flag != 'Y')
         {
             printf("\nInvalid Input Detected!\n");
             continue;
@@ -163,7 +163,7 @@ int main()
             printf("\nExiting Program.............\n");
             exit(0);
         }
-
+        
         printf("Enter the value of l in arr[l,r]: ");
         scanf("%d",&l);
 
