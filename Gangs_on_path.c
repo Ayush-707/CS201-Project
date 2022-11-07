@@ -110,9 +110,6 @@ int main(){
 	for(int m = 0; m < M; m++){
         
 	    scanf("%d %d",&l[m],&r[m]);
-        if(l[m]==(r[m]-1)/2 || l[m]==(r[m])/2){
-            m--;
-        }
     }
 	for(int m = 0; m<M;m++){
 		i=0;
