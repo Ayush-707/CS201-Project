@@ -1,3 +1,5 @@
+DETAILED PSEUDO CODE:
+
 //Structre for a node of the tree
 struct node {
     // stores the value
